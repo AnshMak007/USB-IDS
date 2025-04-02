@@ -1,0 +1,15 @@
+usb-ids/
+│── scripts/
+│   │── usb_logger.sh       
+│   │── detect_badusb_keystrokes.sh 
+│   │── detect_badusb_commands.sh       
+│   │── detect_badusb_hid.sh     
+│   └── ... and other scripts.
+│
+│── logs/
+│   │── usb_activity.log    
+│   │── badusb_alerts.log 
+│   └── ... and other log files.
+│ 
+│── usb_ids.py      # Main USB IDS engine (integrates all scripts)
+
