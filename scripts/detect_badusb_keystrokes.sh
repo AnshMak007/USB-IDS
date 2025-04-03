@@ -1,7 +1,7 @@
 #!/bin/bash
 
-LOG_FILE="/home/kali/Desktop/project/usb_ids/logs/audit/audit.log"
-ALERT_FILE="/home/kali/Desktop/project/usb_ids/logs/usb_alerts.log"
+LOG_FILE="/home/kali/Desktop/project/usb_ids/USB-IDS/logs/audit/audit.log"
+ALERT_FILE="/home/kali/Desktop/project/usb_ids/USB-IDS/logs/usb_alerts.log"
 THRESHOLD=20  # Max allowed keystrokes per second
 
 echo "[INFO] Monitoring keystroke speed..."

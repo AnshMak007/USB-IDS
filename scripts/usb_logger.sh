@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOG_FILE="/home/kali/Desktop/project/usb_ids/logs/usb_activity.log"
+LOG_FILE="/home/kali/Desktop/project/usb_ids/USB-IDS/logs/usb_activity.log"
 
 echo "[INFO] Starting USB activity monitoring..."
 echo "Logs are being written to: $LOG_FILE"

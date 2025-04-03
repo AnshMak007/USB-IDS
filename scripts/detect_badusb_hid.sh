@@ -1,7 +1,7 @@
 #!/bin/bash
 
-LOG_FILE="/home/kali/Desktop/project/usb_ids/logs/usb_activity.log"
-ALERT_FILE="/home/kali/Desktop/project/usb_ids/logs/usb_alerts.log"
+LOG_FILE="/home/kali/Desktop/project/usb_ids/USB-IDS/logs/usb_activity.log"
+ALERT_FILE="/home/kali/Desktop/project/usb_ids/USB-IDS/logs/usb_alerts.log"
 
 echo "[INFO] Monitoring for new USB HID devices..."
 

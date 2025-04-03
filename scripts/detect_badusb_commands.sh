@@ -1,7 +1,7 @@
 #!/bin/bash
 
-LOG_FILE="/home/kali/Desktop/project/usb_ids/logs/usb_activity.log"
-ALERT_LOG="/home/kali/Desktop/project/usb_ids/logs/usb_command_alerts.log"
+LOG_FILE="/home/kali/Desktop/project/usb_ids/USB-IDS/logs/usb_activity.log"
+ALERT_LOG="/home/kali/Desktop/project/usb_ids/USB-IDS/logs/usb_command_alerts.log"
 ALERT_SCRIPT="/usr/local/bin/usb_alert.sh"
 
 START_TIME=$(date +%s)  # Record start time
