@@ -12,7 +12,7 @@ detect_hid_device() {
         echo "$(date) [ALERT] New HID device found - $line" | tee -a "$ALERT_FILE"
 
         # Call the Python-based keyboard authorization GUI
-        python3 /home/kali/Desktop/project/usb_ids/authorize_keyboard.py
+        python3 /home/kali/Desktop/project/usb_ids/USB-IDS/authorize_keyboard.py
 
         # Check the exit code of the Python script
         if [[ $? -ne 0 ]]; then
