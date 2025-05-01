@@ -47,9 +47,9 @@ while read -r line; do
     echo "$(date) [JOURNALCTL] $line" | tee -a "$LOG_FILE"
 done &
 
-# 3. Monitor audit logs for USB-related activity
+# 3. Monitor audit logs for USB-related activity  "usb"
 tail -F /var/log/audit/audit.log |
-grep --line-buffered -E "usb|mount|avc|USER_AUTH|USER_LOGIN|usb_keys|usb-badusb" |
+grep --line-buffered -E "mount|avc|USER_AUTH|USER_LOGIN|usb_keys|usb-badusb|usb_sensitive_access" |
 while read -r line; do
     echo "$(date) [AUDITD] $line" | tee -a "$LOG_FILE"
 done &
