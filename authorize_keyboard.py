@@ -36,7 +36,12 @@ submit_button = tk.Button(root, text="Authorize", command=verify_code, font=("Ar
 submit_button.pack(pady=10)
 
 # Timeout: Auto-close after 10 seconds if no input
-root.after(10000, lambda: root.destroy())  
+# Replace old root.after line with this:
+def timeout():
+    messagebox.showwarning("Timeout", "Authorization timed out! Device not authorized.")
+    sys.exit(1)
+
+root.after(10000, timeout)
 
 root.mainloop()
 
