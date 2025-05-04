@@ -12,20 +12,29 @@ detect_hid_device() {
     local line="$1"
     echo "[DEBUG] New log line received: $line"
 
-    if echo "$line" | grep -qiE "HID|keyboard|input device"; then
+    if echo "$line" | grep -qiE "Nano|HID|keyboard|input device|Mouse"; then
         echo "[DEBUG] Line matched HID pattern"
 
-        local vid=$(echo "$line" | grep -oP 'idVendor=\K[0-9a-fA-F]+')
-        local pid=$(echo "$line" | grep -oP 'idProduct=\K[0-9a-fA-F]+')
+        local vid=$(echo "$line" | grep -oP 'idVendor=\K[0-9a-fA-F]{4}')
+        local pid=$(echo "$line" | grep -oP 'idProduct=\K[0-9a-fA-F]{4}')
         local device_id=""
 
         if [[ -z "$vid" || -z "$pid" ]]; then
             echo "[DEBUG] Missing VID or PID. Trying fallback via lsusb..."
-            local lsusb_line=$(lsusb | grep -i "keyboard" | tail -n 1)
+            local lsusb_line=$(lsusb | grep -iE 'keyboard|input|nano|mouse' | tail -n 1)
             if [[ -n "$lsusb_line" ]]; then
-                vid=$(echo "$lsusb_line" | awk '{print $6}' | cut -d: -f1)
-                pid=$(echo "$lsusb_line" | awk '{print $6}' | cut -d: -f2)
-                echo "[DEBUG] Fallback lsusb VID=$vid PID=$pid"
+                local raw_id=$(echo "$lsusb_line" | awk '{print $6}')
+                if [[ "$raw_id" =~ ^[0-9a-fA-F]{4}:[0-9a-fA-F]{4}$ ]]; then
+                    vid=$(echo "$raw_id" | cut -d: -f1)
+                    pid=$(echo "$raw_id" | cut -d: -f2)
+                    echo "[DEBUG] Fallback lsusb VID=$vid PID=$pid"
+                else
+                    echo "[DEBUG] Fallback VID:PID not in expected format."
+                    return
+                fi
+            else
+                echo "[DEBUG] No matching lsusb output found."
+                return
             fi
         fi
 
@@ -41,7 +50,6 @@ detect_hid_device() {
             echo "$(date) [INFO] Already authorized device detected again: $device_id" >> "$ALERT_FILE"
             return
         fi
-
         echo "$(date) [ALERT] New HID device found - $line" | tee -a "$ALERT_FILE"
 
         # Launch GUI auth and get return code
@@ -62,7 +70,8 @@ detect_hid_device() {
     fi
 }
 
-# Monitor log file for new lines
-tail -Fn0 "$LOG_FILE" | while read -r line; do
+# Open file descriptor to avoid subshell from `tail | while`
+exec 3< <(tail -Fn0 "$LOG_FILE")
+while read -r line <&3; do
     detect_hid_device "$line"
 done

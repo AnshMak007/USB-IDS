@@ -11,20 +11,20 @@ CODE = str(random.randint(1000, 9999))
 def verify_code():
     user_input = entry.get()
     if user_input == CODE:
-        messagebox.showinfo("Authorization", "✅ Keyboard authorized successfully!")
+        messagebox.showinfo("Authorization", "✅ Keyboard/HID authorized successfully!")
         sys.exit(0)  # Exit with success code
     else:
-        messagebox.showwarning("Authorization", "❌ Unauthorized keyboard detected! Possible BadUSB attack!")
+        messagebox.showwarning("Authorization", "❌ Unauthorized keyboard/HID detected! Possible BadUSB attack!")
         sys.exit(1)  # Exit with failure code
 
 # Create the GUI window
 root = tk.Tk()
-root.title("USB Keyboard Authorization")
+root.title("USB Keyboard/HID Authorization")
 root.geometry("350x150")
 root.resizable(False, False)
 
 # Instruction Label
-label = tk.Label(root, text=f"A new keyboard has been detected!\nEnter this code to authorize: {CODE}", font=("Arial", 12))
+label = tk.Label(root, text=f"A new keyboard/HID has been detected!\nEnter this code to authorize: {CODE}", font=("Arial", 12))
 label.pack(pady=10)
 
 # Entry Box
